@@ -3,7 +3,7 @@
 import {Controller} from "react-hook-form";
 import {useDropzone} from "react-dropzone";
 import {useCallback, useEffect} from "react";
-import {Grid, ImageList, ImageListItem, useMediaQuery} from "@mui/material";
+import {Container, Grid, ImageList, ImageListItem, useMediaQuery} from "@mui/material";
 
 export const FilesInput = ({name, multiple, control, register, unregister, setValue, watch, accept}) => {
     const files = watch(name)
@@ -48,16 +48,19 @@ const Dropzone = ({accept, multiple, onDrop, files}) => {
     });
 
     return (
-        <section className="container">
-            <div {...getRootProps({className: 'dropzone'})}>
+        <Container sx={{mt: 1}} component="section">
+            <Container sx={{mb: 1}} {...getRootProps({className: 'dropzone'})}>
                 <input {...getInputProps()} />
                 {
                     isDragActive ?
                         <p>Drop the files here ...</p> :
                         <p>Drag 'n' drop some files here, or click to select files</p>
                 }
-            </div>
-            <Grid container columns={{xs: 1, sm: 2, md: 4, lg: 6}}>
+            </Container>
+            {
+                // Grid template columns stuff: https://www.youtube.com/watch?v=HqlSSibi9Ps
+            }
+            <ImageList gap={10} sx={{gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr)) !important'}}>
                 {
                     !!files?.length &&
                     files.map((file) => (
@@ -69,8 +72,8 @@ const Dropzone = ({accept, multiple, onDrop, files}) => {
                         </ImageListItem>
                     ))
                 }
-            </Grid>
-        </section>
+            </ImageList>
+        </Container>
     );
 };
 
