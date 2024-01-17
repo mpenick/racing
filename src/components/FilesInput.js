@@ -2,10 +2,10 @@
 
 import {Controller} from "react-hook-form";
 import {useDropzone} from "react-dropzone";
-import {useCallback, useEffect} from "react";
-import {Container, Grid, ImageList, ImageListItem, useMediaQuery} from "@mui/material";
+import {useCallback} from "react";
+import {Container, ImageList, ImageListItem} from "@mui/material";
 
-export const FilesInput = ({name, multiple, control, register, unregister, setValue, watch, accept}) => {
+export const FilesInput = ({name, multiple, control, setValue, watch, accept}) => {
     const files = watch(name)
     const onDrop = useCallback(async (acceptedFiles) => {
             for (const file of acceptedFiles) {
@@ -17,15 +17,9 @@ export const FilesInput = ({name, multiple, control, register, unregister, setVa
         },
         [setValue, name, files]
     );
-    useEffect(() => {
-        register(name);
-        return () => {
-            unregister(name);
-        };
-    }, [register, unregister, name]);
     return (
         <Controller
-            render={({field: {onChange}}) => (
+            render={() => (
                 <Dropzone
                     accept={accept}
                     multiple={multiple}
