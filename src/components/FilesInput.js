@@ -60,11 +60,11 @@ const Dropzone = ({accept, multiple, onDrop, files}) => {
             {
                 // Grid template columns stuff: https://www.youtube.com/watch?v=HqlSSibi9Ps
             }
-            <ImageList gap={10} sx={{gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr)) !important'}}>
+            <ImageList gap={10} sx={{gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr)) !important'}}>
                 {
                     !!files?.length &&
-                    files.map((file) => (
-                        <ImageListItem key={file.name}>
+                    files.map((file, index) => (
+                        <ImageListItem key={index}>
                             <img
                                 src={file.preview}
                                 alt={file.name}
