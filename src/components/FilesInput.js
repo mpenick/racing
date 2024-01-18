@@ -5,7 +5,7 @@ import {useDropzone} from "react-dropzone";
 import {useCallback} from "react";
 import {Container, ImageList, ImageListItem} from "@mui/material";
 
-export const FilesInput = ({name, multiple, control, setValue, watch, accept}) => {
+export const FilesInput = ({name, multiple, control, setValue, register, watch, accept}) => {
     const files = watch(name)
     const onDrop = useCallback(async (acceptedFiles) => {
             for (const file of acceptedFiles) {
@@ -17,6 +17,7 @@ export const FilesInput = ({name, multiple, control, setValue, watch, accept}) =
         },
         [setValue, name, files]
     );
+    register(name)
     return (
         <Controller
             render={() => (
@@ -54,7 +55,7 @@ const Dropzone = ({accept, multiple, onDrop, files}) => {
             {
                 // Grid template columns stuff: https://www.youtube.com/watch?v=HqlSSibi9Ps
             }
-            <ImageList gap={10} sx={{gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr)) !important'}}>
+            <ImageList rows={2} gap={10} sx={{gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr)) !important'}}>
                 {
                     !!files?.length &&
                     files.map((file, index) => (

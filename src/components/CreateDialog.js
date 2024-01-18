@@ -1,13 +1,12 @@
-'use client'
-
-import {useForm} from "react-hook-form";
-import {Box, Button, Container, Step, StepLabel, Stepper} from "@mui/material";
-import {useState} from "react";
+import Dialog from '@mui/material/Dialog';
+import {Box, Button, DialogActions, DialogContent, DialogTitle, Step, StepLabel, Stepper} from "@mui/material";
 import {FilesInput} from "@/components/FilesInput";
+import {useState} from "react";
+import {useForm} from "react-hook-form";
 
 const steps = ['Add images', 'Add information', 'Review'];
 
-export default function Page() {
+export default function CreateDialog({open, onClose}) {
     const [activeStep, setActiveStep] = useState(0)
     const methods = useForm()
     const onSubmit = data => console.log(data)
@@ -20,9 +19,9 @@ export default function Page() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1)
     }
 
-    return (
-        <main>
-            <Container sx={{mt: 1}} component="form" onSubmit={methods.handleSubmit(onSubmit)}>
+    return (<Dialog>
+            <DialogTitle>Create item</DialogTitle>
+            <DialogContent>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
                         return (
@@ -38,6 +37,8 @@ export default function Page() {
                         accept={{'image/*': ['.jpg', '.png']}}
                         name="files" multiple/>
                 )}
+            </DialogContent>
+            <DialogActions>
                 <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
                     <Button
                         color="inherit"
@@ -60,7 +61,7 @@ export default function Page() {
                         )
                     }
                 </Box>
-            </Container>
-        </main>
+            </DialogActions>
+        </Dialog>
     )
 }
